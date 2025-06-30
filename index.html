@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Случайное изображение iPhone</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f5f5f7;
+            text-align: center;
+        }
+        .container {
+            max-width: 100%;
+            width: 100%;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+        h1 {
+            color: #1d1d1f;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .refresh-btn {
+            background-color: #0071e3;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 24px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        .refresh-btn:hover {
+            background-color: #0077ed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Случайное изображение iPhone</h1>
+        <div id="image-container">
+            <!-- Изображение будет загружено сюда -->
+        </div>
+        <button class="refresh-btn" onclick="loadRandomImage()">Обновить</button>
+    </div>
+
+    <script>
+        // Функция для загрузки случайного изображения
+        function loadRandomImage() {
+            // Генерируем случайное число от 9 до 16
+            const randomNumber = Math.floor(Math.random() * 8) + 9;
+            const imageName = `iPhone 13 & 14 - ${randomNumber}`;
+            
+            // Создаем URL изображения (замените на реальный путь к вашим изображениям)
+            // В этом примере предполагается, что изображения лежат в папке images/
+            // с именами "iPhone 13 & 14 - 9.jpg" и т.д.
+            const imageUrl = `images/${imageName}.jpg`;
+            
+            // Отображаем изображение
+            const imageContainer = document.getElementById('image-container');
+            imageContainer.innerHTML = `
+                <p>${imageName}</p>
+                <img src="${imageUrl}" alt="${imageName}" onerror="handleImageError()">
+            `;
+        }
+        
+        // Обработчик ошибки загрузки изображения
+        function handleImageError() {
+            const imageContainer = document.getElementById('image-container');
+            imageContainer.innerHTML = '<p>Изображение не найдено. Пожалуйста, проверьте путь к файлам.</p>';
+        }
+        
+        // Загружаем случайное изображение при загрузке страницы
+        window.onload = loadRandomImage;
+    </script>
+</body>
+</html>
