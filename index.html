@@ -24,6 +24,7 @@
         img {
             max-width: 100%;
             height: auto;
+            max-height: 60vh;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             margin: 20px 0;
@@ -47,6 +48,11 @@
         .refresh-btn:hover {
             background-color: #0077ed;
         }
+        .filename {
+            font-weight: bold;
+            margin-bottom: 10px;
+            word-break: break-all;
+        }
     </style>
 </head>
 <body>
@@ -59,29 +65,39 @@
     </div>
 
     <script>
+        // Массив с именами файлов изображений
+        const imageFiles = [
+            "iPhone 13 & 14 - 9.png",
+            "iPhone 13 & 14 - 10.png",
+            "iPhone 13 & 14 - 11.png",
+            "iPhone 13 & 14 - 12.png",
+            "iPhone 13 & 14 - 13.png",
+            "iPhone 13 & 14 - 14.png",
+            "iPhone 13 & 14 - 15.png",
+            "iPhone 13 & 14 - 16.png"
+        ];
+
         // Функция для загрузки случайного изображения
         function loadRandomImage() {
-            // Генерируем случайное число от 9 до 16
-            const randomNumber = Math.floor(Math.random() * 8) + 9;
-            const imageName = `iPhone 13 & 14 - ${randomNumber}`;
-            
-            // Создаем URL изображения (замените на реальный путь к вашим изображениям)
-            // В этом примере предполагается, что изображения лежат в папке images/
-            // с именами "iPhone 13 & 14 - 9.jpg" и т.д.
-            const imageUrl = `images/${imageName}.jpg`;
+            // Выбираем случайное изображение из массива
+            const randomImage = imageFiles[Math.floor(Math.random() * imageFiles.length)];
             
             // Отображаем изображение
             const imageContainer = document.getElementById('image-container');
             imageContainer.innerHTML = `
-                <p>${imageName}</p>
-                <img src="${imageUrl}" alt="${imageName}" onerror="handleImageError()">
+                <div class="filename">${randomImage}</div>
+                <img src="${randomImage}" alt="${randomImage.replace('.png', '')}" onerror="handleImageError()">
             `;
         }
         
         // Обработчик ошибки загрузки изображения
         function handleImageError() {
             const imageContainer = document.getElementById('image-container');
-            imageContainer.innerHTML = '<p>Изображение не найдено. Пожалуйста, проверьте путь к файлам.</p>';
+            imageContainer.innerHTML = '<p>Ошибка загрузки изображения. Пожалуйста, проверьте консоль для подробностей.</p>';
+            console.error("Ошибка загрузки изображения. Убедитесь, что:");
+            console.error("1. Все файлы изображений загружены в репозиторий");
+            console.error("2. Имена файлов точно соответствуют указанным в коде");
+            console.error("3. GitHub Pages правильно опубликован");
         }
         
         // Загружаем случайное изображение при загрузке страницы
